@@ -1,0 +1,16 @@
+.section {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 11vh;
+  padding: 0 10rem;
+  margin-bottom: 5rem;
+  background-color: white;
+}
+
+
+.rightContainer {
+  display: flex;
+  justify-content: space-between;
+  gap: 4rem;
+}
