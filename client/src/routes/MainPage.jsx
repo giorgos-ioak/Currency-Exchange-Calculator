@@ -4,7 +4,7 @@ import MutateCurrency from "../sections/MutateCurrency.jsx";
 
 import classes from "../cssModules/MainPage.module.css";
 import { useEffect } from "react";
-import {useDispatch } from "react-redux";
+import {useDispatch,} from "react-redux";
 import { storeCurrencies } from "../stateReducers/currenciesSlice.js";
 import { Outlet, useLoaderData } from "react-router-dom";
 
@@ -22,7 +22,6 @@ function MainPage() {
   }, [currencies]);
 
 
-  
   return (
     <>
       <Navbar />
@@ -47,7 +46,5 @@ export const loader = async() => {
   const response = await fetch('http://localhost:3000/currencies');
   const data = await response.json();
 
-  const currenciesArray = Object.values(data);    // Converts the data from 
-                                                  // an object to an array
-  return currenciesArray;
+  return data;
 };

@@ -22,11 +22,11 @@ const router = createBrowserRouter([
     loader: loader,
     children: [
       {
-        path: "createCurrency",
+        path: "createCurrencyExchange",
         element: <CreateCurrency />,
       },
       {
-        path: "deleteCurrency",
+        path: "deleteCurrencyExchange",
         element: <DeleteCurrency />
       }
     ]

@@ -1,13 +1,12 @@
 import classes from '../cssModules/Navbar.module.css';
 
 import Button from "./Button.jsx";
-import Logo from './Logo.jsx';
 
 function Navbar() {
   return (
     <section className={classes.section}>
       <div className={classes.leftContainer}>
-        <Logo />
+        {/* <Logo /> */}
       </div>
       
       <div className={classes.rightContainer}>

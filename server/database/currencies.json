@@ -1,1 +1,1 @@
-{"USD":{"name":"USD","rate":1},"EUR":{"name":"EUR","rate":0.89},"GBP":{"name":"GBP","rate":0.75},"JPY":{"name":"JPY","rate":143.85},"CAD":{"name":"CAD","rate":1.35}}
+[{"baseCurrency":"EUR","targetCurrency":"USD","rate":1.3764},{"baseCurrency":"EUR","targetCurrency":"SWF","rate":1.2079},{"baseCurrency":"EUR","targetCurrency":"BGP","rate":0.8731},{"baseCurrency":"USD","targetCurrency":"JPY","rate":76.72},{"baseCurrency":"BGP","targetCurrency":"CAD","rate":1.5648},{"baseCurrency":"TTT","targetCurrency":"PPP","rate":2}]

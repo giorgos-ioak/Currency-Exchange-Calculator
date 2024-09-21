@@ -5,9 +5,15 @@ import { useDispatch, useSelector } from "react-redux";
 import { changeSelectedCurrencies } from "../stateReducers/selectedCurrencies";
 
 function BaseCurrency({ label, name }) {
+  const dispatch = useDispatch();
+  
   const [baseCurrency, setBaseCurrency] = useState("Select an option");
   const currencies = useSelector((state) => state.currencies.value);  
-  const dispatch = useDispatch();
+
+  const allCurrencies = (currencies || []).flatMap((object) => [object.baseCurrency, object.targetCurrency]);
+  const uniqueCurrencies = [...new Set(allCurrencies)];
+
+
 
 
 
@@ -32,12 +38,12 @@ function BaseCurrency({ label, name }) {
         onChange={handleSelectChange}
       >
         <option disabled>Select an option</option>
-        {currencies.map((currency) => (
+        {uniqueCurrencies.map((currency) => (
           <option 
-            key={currency.name} 
-            value={currency.name}
+            key={currency} 
+            value={currency}
           >
-            {currency.name}
+            {currency}
           </option>
         ))}
       </select>

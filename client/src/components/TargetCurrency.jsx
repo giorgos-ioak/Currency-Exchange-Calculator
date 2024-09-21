@@ -5,10 +5,13 @@ import { useState } from "react";
 import { changeSelectedCurrencies } from "../stateReducers/selectedCurrencies.js";
 
 function TargetCurrency({ label, name }) {
-  const [targetCurrency, setTargetCurrency] = useState("Select an option");
-  const currencies = useSelector((state) => state.currencies.value);  
   const dispatch = useDispatch();
 
+  const [targetCurrency, setTargetCurrency] = useState("Select an option");
+  const currencies = useSelector((state) => state.currencies.value);  
+
+  const allCurrencies = (currencies || []).flatMap((object) => [object.baseCurrency, object.targetCurrency]);
+  const uniqueCurrencies = [...new Set(allCurrencies)];
 
 
   function handleSelectChange(e) {
@@ -30,12 +33,12 @@ function TargetCurrency({ label, name }) {
         onChange={handleSelectChange}
       >
         <option disabled>Select an option</option>
-        {currencies.map((currency) => (
+        {uniqueCurrencies.map((currency) => (
           <option 
-            key={currency.name} 
-            value={currency.name}
+            key={currency} 
+            value={currency}
           >
-            {currency.name}
+            {currency}
           </option>
         ))}
       </select>

@@ -9,7 +9,6 @@ function Modal({ children }) {
     navigate('..');
   };
 
-  console.log("Modal got rendered");
 
   return (
     <>

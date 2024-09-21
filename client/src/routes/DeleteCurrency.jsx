@@ -11,18 +11,18 @@ function DeleteCurrency() {
   return (
     <Modal>
       <Form method='post' className={classes.form}>
-        <label htmlFor='name'>Name</label>
+        <label htmlFor='name'>Exchange Currency</label>
         <select 
           className={classes.inputContainer} 
           name='deletedCurrency' 
-            d="deleteCurrency"
+          id="deleteCurrency"
         >
-          {currencies.map((currency) => (
+          {(currencies || []).map((object) => (
             <option 
-              key={currency.name} 
-              value={currency.name}
+              key={`${object.baseCurrency}-${object.targetCurrency}`} 
+              value={object.baseCurrency}
             >
-              {currency.name}
+              {object.baseCurrency + " -> " + object.targetCurrency + ` (${object.rate})`}
             </option>
           ))}
         </select>

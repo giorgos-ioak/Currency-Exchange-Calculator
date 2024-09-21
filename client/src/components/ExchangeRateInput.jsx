@@ -10,30 +10,32 @@ function ExchangeRateInput({title, name}) {
   const currencies = useSelector((state) => state.currencies.value);      // Get the all the currencies
   const selectedCurrencies = useSelector((state) => state.selectedCurrencies.value);
 
-
+  const baseCurrency = selectedCurrencies?.baseCurrency;
+  const targetCurrency = selectedCurrencies?.targetCurrency;
+  
 
   useEffect(() => {
-    if(name == "baseCurrencyRate") {
-      const currencyName = selectedCurrencies.baseCurrency;
-      const currency = currencies.find((currency) => currency.name == currencyName);
+    if(baseCurrency && targetCurrency) {
+      const exchangeCurrency = (currencies || []).find((object) => object.baseCurrency == baseCurrency && object.targetCurrency == targetCurrency);
 
-      if(currency) {
-        setExchangeRate(currency.rate);
-      }
-    } else if(name == "targetCurrencyRate") {
-      const currencyName = selectedCurrencies.targetCurrency;
-      const currency = currencies.find((currency) => currency.name == currencyName);
-
-      if(currency) {
-        setExchangeRate(currency.rate);
+      if(exchangeCurrency) {
+        setExchangeRate(exchangeCurrency.rate);
+      } else {
+        setExchangeRate(null);
       }
     }
-  }, [selectedCurrencies, currencies, name]);
+  }, [baseCurrency, targetCurrency, currencies]);
+
+  console.log(exchangeRate);
+ 
 
 
+  
   function handleInputChange(e) {
     setExchangeRate(e.target.value);
   };
+
+
 
   return (
     <div className={classes.container}>
@@ -43,7 +45,7 @@ function ExchangeRateInput({title, name}) {
         name={name}
         type="number"
         required
-        value={exchangeRate || ""}
+        value={exchangeRate || ''}
         onChange={handleInputChange}
       />
     </div>

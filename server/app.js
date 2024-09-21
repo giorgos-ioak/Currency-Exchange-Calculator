@@ -18,6 +18,7 @@ function readFile() {
   return currencies;
 };
 
+readFile();
 
 
 function writeFile(data) {
@@ -28,7 +29,7 @@ function writeFile(data) {
 
 
 
-app.get("/currencies" , (req,res) => {
+app.get("/currencies" , (req,res) => {          //// DONE
   const currencies = readFile();
 
   if(!currencies) {
@@ -40,17 +41,17 @@ app.get("/currencies" , (req,res) => {
 
 
 
-app.get("/currencies/:name" , (req,res) => {     
-  const currencies = readFile();
-  const name = req.params.name;
+// app.get("/currencies/:name" , (req,res) => {     
+//   const currencies = readFile();
+//   const name = req.params.name;
 
-  if(!currencies[name]) {
-    return res.json({message: "This currency does not exist"});
-  }
+//   if(!currencies[name]) {
+//     return res.json({message: "This currency does not exist"});
+//   }
 
-  const currency = data[name];
-  return res.send(currency);
-});
+//   const currency = data[name];
+//   return res.send(currency);
+// });
 
 
 
@@ -59,11 +60,12 @@ app.post("/convert" , (req,res) => {
 
   const { baseCurrency, targetCurrency, amount } = req.body;
 
-  const baseRate = currencies[baseCurrency].rate;
-  const targetRate = currencies[targetCurrency].rate;
-  const convertedAmount = (amount / baseRate) * targetRate;
+  const exchangeCurrency = currencies.find((object) => object.baseCurrency == baseCurrency && object.targetCurrency == targetCurrency);
 
-  return res.status(200).json({convertedAmount});
+  const rate = exchangeCurrency.rate;
+  const convertedAmount = rate * amount;
+
+  return res.status(200).json({ convertedAmount });
 }); 
 
 
@@ -72,17 +74,20 @@ app.post("/convert" , (req,res) => {
 app.post("/createCurrency" , (req,res) => {
   const currencies = readFile();
 
-  const { name } = req.body;              
-  const { rate } = req.body;             
+  const { baseCurrency, targetCurrency, rate } = req.body;   
+  
+  const exchangeCurrency = currencies.find((object) => object.baseCurrency == baseCurrency && object.targetCurrency == targetCurrency);
 
-  if(currencies[name]) {
-    return res.json({message: "This currency already exists."})
+  if(exchangeCurrency) {
+    return res.json({message: "This exchange currency already exists."})
   };
 
-  currencies[name] = { name, rate };
-  writeFile(currencies);
+  const newExchangeCurrency = { baseCurrency, targetCurrency, rate }
 
-  return res.status(200).json({ message: "Currency Created" , currency: currencies[name]});
+  const updatedCurrencies = [...currencies, newExchangeCurrency]
+  writeFile(updatedCurrencies);
+
+  return res.status(200).json({ message: "Currency Created" , currency: newExchangeCurrency});
 });
 
 
