@@ -1,34 +1,96 @@
 import classes from "../cssModules/Calculator.module.css";
 
-import InputNumber from "./InputNumber.jsx";
-import { Form } from "react-router-dom";
+import ExchangeRateInput from "./exchangeRateInput.jsx";
+import BaseCurrency from "./BaseCurrency.jsx";
+import TargetCurrency from "./TargetCurrency.jsx";
+import AmountInput from "./AmountInput.jsx";
+import { useState } from "react";  
 
-function Calculator() {       // LATER ADD FORM COMPONENT
+function Calculator() {      
+
+  const [convertedAmount, setConvertedAmount] = useState("");
+
+
+  const handleSubmit = async (e) => {
+    e.preventDefault(); // Prevent default form submission
+    const formData = new FormData(e.target);
+    const data = Object.fromEntries(formData);
+
+    try {
+      // Update baseCurrencyRate
+      const response1 = await fetch(`http://localhost:3000/currencies/${data.baseCurrency}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ rate: Number(data.baseCurrencyRate) })
+      });
+
+      if (!response1.ok) {
+        throw new Error('Failed to update the baseCurrencyRate');
+      }
+
+      // Update targetCurrencyRate
+      const response2 = await fetch(`http://localhost:3000/currencies/${data.targetCurrency}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ rate: Number(data.targetCurrencyRate) })
+      });
+
+      if (!response2.ok) {
+        throw new Error('Failed to update the targetCurrencyRate');
+      }
+
+      // Get converted amount
+      const response3 = await fetch(`http://localhost:3000/convert`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          baseCurrency: data.baseCurrency,
+          targetCurrency: data.targetCurrency,
+          amount: data.amount
+        })
+      });
+
+      if (!response3.ok) {
+        throw new Error('Failed to convert the amount');
+      }
+
+      const result = await response3.json();
+      setConvertedAmount(result.convertedAmount); // Set converted amount
+    } catch (err) {
+      return {error: err.message}; // Set error message if any
+    }
+  };
+
+
+
   return (
     <section className={classes.mainContainer}>
-      <Form>
+      <form onSubmit={handleSubmit}>
         <div className={classes.formContainer}>
           <div className={classes.firstColumn}>
-            <InputNumber title="From" type="text" defaultValue="EUR"/>
-            <InputNumber title="Exchange Rate" type="number" defaultValue={0.89}/>
-            <InputNumber title="Amount" type="number" defaultValue={2.55}/>
+            <BaseCurrency defaultCurrency="EUR" label="From" name="baseCurrency"/>
+            <ExchangeRateInput title="Exchange Rate" name="baseCurrencyRate"/>
+            <AmountInput title="Amount" name="amount"/>
           </div>
 
           <div className={classes.secondColumn}>
-            <div className={classes.secondColumnContainer}>
-              <InputNumber title="To" type="text" defaultValue="USD"/>
-              <InputNumber title="Exchange Rate" type="number" defaultValue={0.89}/>
+            <TargetCurrency defaultCurrency="USD" label="To" name="targetCurrency"/>
+            <ExchangeRateInput title="Exchange Rate" name="targetCurrencyRate"/>
+            <div className={classes.buttonContainer}>
+              <label className={classes.label}>Yeah</label>
+              <button className={classes.btn}>Convert</button>
             </div>
-            <button className={classes.btn}>Convert</button>
           </div>
         </div>
-      </Form>
+      </form>
 
       <div className={classes.resultContainer}>
-        <InputNumber type="text" defaultValue="This is your result"/>
-      </div>
+        <label>Result</label>
+        <input className={classes.inputContainer} defaultValue={convertedAmount}/>
+        <p>**All exchange rates are relative to $1.00 USD.**</p>
+      </div>      
     </section>
   )
 }
 
-export default Calculator
+export default Calculator;

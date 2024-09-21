@@ -1,0 +1,47 @@
+.mainContainer {
+  display: flex;
+  width: 35vw;
+  margin: auto;
+  justify-content: space-around;
+  padding: 1rem;
+  margin-top: 4rem;
+  gap: 2rem;
+}
+
+
+
+
+
+/*****  WIDTH   *****/
+@media (max-width: 480px) {
+  .mainContainer {
+    width: 90vw;
+    margin-top: 2rem;
+  }
+}
+
+
+
+@media (min-width: 481px) and (max-width: 768px) {
+  .mainContainer {
+    width: 80vw;
+    margin-top: 3rem;
+  }
+}
+
+
+
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .mainContainer {
+    width: 60vw;
+  }
+}
+
+
+
+@media (min-width: 1025px) and (max-width: 1444px) {
+  .mainContainer {
+    width: 45vw;
+  }
+}

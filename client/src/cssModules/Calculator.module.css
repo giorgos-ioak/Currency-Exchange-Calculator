@@ -1,9 +1,9 @@
 .mainContainer {
   width: 50vw;
   background-color: white;
-  height: 70vh;
+  height: 73vh;
   margin: auto;
-  margin-top: 10rem;
+  margin-top: 6rem;
   border-radius: 18px;
   padding: 2rem;
 }
@@ -11,15 +11,29 @@
 
 .btn {
   padding: 1rem 2rem;
-  width: 70%;
+  width: 60%;
   background-color: rgb(114, 170, 255);
   border: 1.5px solid black;
   border-radius: 6px;
   cursor: pointer;
-
+  margin-top: 0.4rem;
   font-family: 'Montserrat';
   font-weight: 500;
   font-size: 1.1rem;
+}
+
+
+.inputContainer {
+  padding: 1rem 0;
+  border: 1px solid grey;
+  border-radius: 8px;
+  margin-top: 0.4rem;
+  width: 25%;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  font-family: 'Poppins';
+  font-size: 1rem;
+  font-weight: 500;
 }
 
 
@@ -48,19 +62,170 @@
   justify-content: space-between;
 }
 
-
-.secondColumnContainer {
+.buttonContainer {
   display: flex;
   flex-direction: column;
-  width: 100%;
-  gap: 4rem;
   align-items: center;
+  width: 90%;
 }
+
+.label {
+  font-family: 'Poppins';
+  font-weight: 500;
+  visibility: hidden;
+}
+
 
 
 .resultContainer {
   display: flex;
+  flex-direction: column;
   justify-content: center;
-  width: 100%;
+  align-items: center;
   margin-top: 4rem;
+}
+
+.resultContainer > p {
+  margin-top: 2rem;
+  font-family: 'Poppins';
+  font-size: 0.8rem;
+  font-weight: 500;
+  text-align: center;
+}
+
+.resultContainer > label {
+  font-family: 'Poppins';
+  font-weight: 500;
+  text-align: center;
+}
+
+
+
+
+
+/*****  WIDTH   *****/
+@media (max-width: 480px) {
+  .mainContainer {
+    width: 90vw;
+    height: 70vh;
+    margin-top: 10rem;
+    padding: 1rem;
+  }
+
+  .inputContainer {
+    width: 50%;
+  }
+
+  .resultContainer > p {
+    font-size: 0.7rem;
+  }
+
+  
+  .firstColumn {
+    align-items: flex-start;
+    width: 50%;
+  }
+  
+  
+  .secondColumn {
+    align-items: flex-start;
+    width: 50%;
+  }
+
+  .btn {
+    padding: 1rem;
+    width: 90%;
+    font-size: 1rem;
+  }
+}
+
+
+
+@media (min-width: 481px) and (max-width: 768px) {
+  .mainContainer {
+    width: 90vw;
+    height: 70vh;
+    margin-top: 6rem;
+    padding: 2rem;
+  }
+
+  
+
+  .firstColumn {
+    align-items: flex-start;
+    width: 50%;
+  }
+  
+  
+  .secondColumn {
+    align-items: flex-start;
+    width: 50%;
+  }
+
+  .btn {
+    padding: 1rem;
+    width: 90%;
+    font-size: 1rem;
+  }
+}
+
+
+
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .mainContainer {
+    width: 70vw;
+    height: 70vh;
+    margin-top: 6rem;    
+    padding: 2rem;
+  }
+
+  
+
+  .firstColumn {
+    align-items: flex-start;
+    width: 50%;
+  }
+  
+  
+  .secondColumn {
+    align-items: flex-start;
+    width: 50%;
+  }
+
+  .btn {
+    padding: 1rem;
+    width: 90%;
+    font-size: 1rem;
+  }
+}
+
+
+
+@media (min-width: 1025px) and (max-width: 1444px) {
+  .mainContainer {
+    width: 60vw;
+    height: 70vh;
+    margin-top: 6rem;
+    padding: 2rem;
+  }
+
+  
+
+  .firstColumn {
+    align-items: flex-start;
+    width: 50%;
+  }
+  
+  
+  .secondColumn {
+    align-items: flex-start;
+    width: 50%;
+  }
+
+  .btn {
+    padding: 1rem;
+    width: 90%;
+    font-size: 1rem;
+  }
 }

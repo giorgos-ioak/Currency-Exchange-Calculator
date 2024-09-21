@@ -1,3 +1,4 @@
+const cors = require('cors');
 const express = require('express');
 const fs = require('fs');
 
@@ -5,6 +6,7 @@ const app = express();
 const port = 3000;
 
 app.use(express.json());
+app.use(cors());
 
 
 
@@ -52,13 +54,10 @@ app.get("/currencies/:name" , (req,res) => {
 
 
 
-app.get("/convert" , (req,res) => {            
+app.post("/convert" , (req,res) => {            
   const currencies = readFile();
 
-  const { baseCurrency } = req.body;
-  const { targetCurrency } = req.body;
-  const { amount } = req.body;
-
+  const { baseCurrency, targetCurrency, amount } = req.body;
 
   const baseRate = currencies[baseCurrency].rate;
   const targetRate = currencies[targetCurrency].rate;

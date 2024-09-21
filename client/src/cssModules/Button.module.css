@@ -3,8 +3,49 @@
   background-color: white;
   border: 1.5px solid black;
   border-radius: 6px;
-
+  cursor: pointer;
   font-family: 'Montserrat';
   font-weight: 500;
   font-size: 1rem;
+}
+
+
+
+
+
+
+/*****  WIDTH   *****/
+@media (max-width: 480px) {
+  .button {
+    padding: 0.5rem 0.6rem;
+    font-size: 0.8rem;
+  }
+}
+
+
+
+@media (min-width: 481px) and (max-width: 768px) {
+  .button {
+    padding: 0.5rem 0.8rem;
+    font-size: 1rem;
+  }
+}
+
+
+
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .button {
+    padding: 0.6rem 1.5rem;
+    font-size: 1.1rem;
+  }
+}
+
+
+
+@media (min-width: 1025px) and (max-width: 1444px) {
+  .button {
+    padding: 0.6rem 1.5rem;
+    font-size: 1.1rem;
+  }
 }

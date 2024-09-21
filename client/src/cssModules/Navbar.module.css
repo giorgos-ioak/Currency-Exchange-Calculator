@@ -14,3 +14,73 @@
   justify-content: space-between;
   gap: 4rem;
 }
+
+
+
+
+
+
+
+/*****  WIDTH   *****/
+@media (max-width: 480px) {
+  .section {
+    height: 10vh;
+    padding: 1rem;
+  }
+  
+  
+  .rightContainer {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+}
+
+
+
+@media (min-width: 481px) and (max-width: 768px) {
+  .section {
+    height: 10vh;
+    padding: 2rem;
+  }
+  
+  
+  .rightContainer {
+    display: flex;
+    justify-content: space-between;
+    gap: 1.5rem;
+  }
+}
+
+
+
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .section {
+    height: 10vh;
+    padding: 2rem 3rem;
+  }
+  
+  
+  .rightContainer {
+    display: flex;
+    justify-content: space-between;
+    gap: 3rem;
+  }
+}
+
+
+
+@media (min-width: 1025px) and (max-width: 1444px) {
+  .section {
+    height: 10vh;
+    padding: 2rem 5rem;
+  }
+  
+  
+  .rightContainer {
+    display: flex;
+    justify-content: space-between;
+    gap: 4rem;
+  }
+}
