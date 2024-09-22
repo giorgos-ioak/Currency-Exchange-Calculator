@@ -10,7 +10,6 @@ function Calculator() {
 
   const [convertedAmount, setConvertedAmount] = useState("");
 
-  console.log(convertedAmount);
 
 
   const handleSubmit = async (e) => {
@@ -51,7 +50,6 @@ function Calculator() {
             <BaseCurrency label="From" name="baseCurrency"/>
             <ExchangeRateInput title="Exchange Rate" name="baseCurrencyRate"/>
             <div className={classes.buttonContainer}>
-              <label className={classes.label}>Yeah</label>
               <button className={classes.btn}>Convert</button>
             </div>
           </div>

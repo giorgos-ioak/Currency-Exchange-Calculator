@@ -68,11 +68,7 @@
   width: 90%;
 }
 
-.label {
-  font-family: 'Poppins';
-  font-weight: 500;
-  visibility: hidden;
-}
+
 
 
 
@@ -106,13 +102,17 @@
 @media (max-width: 480px) {
   .mainContainer {
     width: 90vw;
-    height: 70vh;
-    margin-top: 10rem;
+    height: 65vh;
+    margin-top: 6rem;
     padding: 1rem;
   }
 
+  .buttonContainer {
+    width: 100%;
+  }
+
   .inputContainer {
-    width: 50%;
+    width: 60%;
   }
 
   .resultContainer > p {

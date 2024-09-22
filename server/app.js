@@ -93,36 +93,40 @@ app.post("/createCurrency" , (req,res) => {
 
 
 
-app.put("/currencies/:name" , (req,res) => {
+app.put("/currencies" , (req,res) => {
   const currencies = readFile();
 
-  const name = req.params.name;
-  const { rate } = req.body;
+  const { baseCurrency, targetCurrency, rate } = req.body;   
+  
+  const exchangeCurrency = currencies.find((object) => object.baseCurrency == baseCurrency && object.targetCurrency == targetCurrency);
 
-  if(!currencies[name]) {
+  if(!exchangeCurrency) {
     return res.json({message: "This currency does not exist."})
   };
 
-  currencies[name].rate = rate;
+  exchangeCurrency.rate = rate;
 
   writeFile(currencies);
-  return res.status(200).json({message: "Updated the currency's rate" , currency: currencies[name]});
+  return res.status(200).json({message: "Updated the currency's rate" , currency: exchangeCurrency});
 });
 
 
 
 
-app.delete("/currencies/:name" , (req,res) => {
+app.delete("/deleteCurrency" , (req,res) => {
   const currencies = readFile();
-  const name = req.params.name;
   
-  if(!currencies[name]) {
+  const { baseCurrency, targetCurrency } = req.body;
+
+  const selectedCurrency = currencies.find((object) => object.baseCurrency == baseCurrency && object.targetCurrency == targetCurrency);
+  
+  if(!selectedCurrency) {
     return res.json({message: "This currency does not exist."})
   }
 
-  delete currencies[name];
+  const updatedCurrencies = currencies.filter((object) => object !== selectedCurrency);
 
-  writeFile(currencies);
+  writeFile(updatedCurrencies);
   return res.status(200).json({message: `Successfully deleted the currency.`})
 });
 

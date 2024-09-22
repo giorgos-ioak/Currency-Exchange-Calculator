@@ -1,39 +1,59 @@
 import Modal from "../components/Modal.jsx";
 import classes from "../cssModules/DeleteCurrency.module.css";
 import { Form, Link, redirect} from "react-router-dom";
+import { useState } from "react";
+import ExchangeRateInput from "../components/ExchangeRateInput.jsx";
 
 import { useSelector } from "react-redux";
 
-function DeleteCurrency() {
+function EditCurrency() {
+  const [selectedCurrency, setSelectedCurrency] = useState(null);
   const currencies = useSelector((state) => state.currencies.value);  
-  
+
+  function handleSelectedCurrencyChange(e) {
+    setSelectedCurrency(JSON.parse(e.target.value));
+  };
+
+
   return (
     <Modal>
       <Form method='post' className={classes.form}>
-        <label htmlFor='name'>Exchange Currency</label>
+        <label htmlFor='editedCurrency'>Exchange Currency</label>
         <select 
           className={classes.inputContainer} 
-          name='deletedCurrency' 
-          id="deleteCurrency"
+          name='editedCurrency' 
+          id="editedCurrency"
+          onChange={handleSelectedCurrencyChange}
         >
           {(currencies || []).map((object) => (
             <option 
               key={`${object.baseCurrency}-${object.targetCurrency}`} 
               value={JSON.stringify({
                 baseCurrency: object.baseCurrency,
-                targetCurrency: object.targetCurrency
+                targetCurrency: object.targetCurrency,
+                rate: object.rate
               })}
             >
               {object.baseCurrency + " -> " + object.targetCurrency + ` (${object.rate})`}
             </option>
           ))}
         </select>
+
+        <label htmlFor='editedRate'>Rate</label>
+        <input 
+          type="number" 
+          defaultValue={selectedCurrency?.rate} 
+          step='0.01' 
+          id='editedRate' 
+          name='editedRate' 
+          required
+        />
         
         <div className={classes.actions}>
           <Link className={classes.cancelBtn} to=".." type="button">
             Cancel
           </Link>
-          <button className={classes.submitBtn}>Delete</button>
+          <button className={classes.submitBtn}>Edit</button>
         </div>
 
       </Form>
@@ -41,7 +61,9 @@ function DeleteCurrency() {
   )
 }
 
-export default DeleteCurrency
+export default EditCurrency;
+
+
 
 
 
@@ -49,20 +71,23 @@ export default DeleteCurrency
 export async function action({ request }) {
   try {
     const formData = await request.formData();
-    const data = Object.fromEntries(formData);
+    const data = Object.fromEntries(formData);   
 
-    const selectedCurrency = JSON.parse(data.deletedCurrency);
+    const selectedCurrency = JSON.parse(data.editedCurrency);
+    const editedRate = data.editedRate;
 
-    const response = await fetch('http://localhost:3000/deleteCurrency', {
-      method: 'DELETE',
+    const updatedCurrency = {...selectedCurrency, rate: editedRate};
+
+    const response = await fetch('http://localhost:3000/currencies', {
+      method: 'PUT',
       headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify(selectedCurrency)
+      body: JSON.stringify(updatedCurrency)
     });
 
     if(!response.ok) {
       throw new Error({
         name: 'Error',
-        message: 'Failed to create Currency Exchange.'
+        message: 'Failed to update Currency Exchange.'
       });
     } 
 
@@ -71,9 +96,3 @@ export async function action({ request }) {
   return { error: error.message };
 }
 };
-
-
-
-
-
-

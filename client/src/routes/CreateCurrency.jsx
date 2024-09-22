@@ -1,6 +1,6 @@
 import Modal from "../components/Modal.jsx";
 import classes from "../cssModules/CreateCurrency.module.css";
-import { Form, Link} from "react-router-dom";
+import { Form, Link, redirect} from "react-router-dom";
 
 function CreateCurrency() {
   return (
@@ -13,7 +13,7 @@ function CreateCurrency() {
         <input type="text" id='targetCurrency' name='targetCurrency' required/>
 
         <label htmlFor='name'>Exchange Rate</label>
-        <input type='number' id='rate' name='rate' required /> 
+        <input type='number' step='0.01' id='rate' name='rate' required /> 
 
         <div className={classes.actions}>
           <Link className={classes.cancelBtn} to=".." type="button">
@@ -27,3 +27,30 @@ function CreateCurrency() {
 }
 
 export default CreateCurrency
+
+
+
+
+export async function action({ request }) {
+  try {
+    const formData = await request.formData();
+    const data = Object.fromEntries(formData);
+
+    const response = await fetch('http://localhost:3000/createCurrency', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(data)
+    });
+
+    if(!response.ok) {
+      throw new Error({
+        name: 'Error',
+        message: 'Failed to create Currency Exchange.'
+      });
+    } 
+
+    return redirect('/');
+} catch (error) {
+  return { error: error.message };
+}
+};

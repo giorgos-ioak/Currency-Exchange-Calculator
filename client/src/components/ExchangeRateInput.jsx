@@ -26,10 +26,8 @@ function ExchangeRateInput({title, name}) {
     }
   }, [baseCurrency, targetCurrency, currencies]);
 
-  console.log(exchangeRate);
  
-
-
+  
   
   function handleInputChange(e) {
     setExchangeRate(e.target.value);

@@ -10,8 +10,10 @@ import { loader } from "./routes/MainPage.jsx";
 import "./index.css";
 
 import MainPage from './routes/MainPage.jsx';
-import CreateCurrency from './routes/CreateCurrency.jsx';
-import DeleteCurrency from './routes/DeleteCurrency.jsx';
+import CreateCurrency, { action as createAction } from './routes/CreateCurrency.jsx';
+import DeleteCurrency, { action as deleteAction } from './routes/DeleteCurrency.jsx';
+import EditCurrency, { action as editAction } from './routes/EditCurrency.jsx';
+
 
 
 
@@ -24,10 +26,17 @@ const router = createBrowserRouter([
       {
         path: "createCurrencyExchange",
         element: <CreateCurrency />,
+        action: createAction
       },
       {
         path: "deleteCurrencyExchange",
-        element: <DeleteCurrency />
+        element: <DeleteCurrency />,
+        action: deleteAction
+      },
+      {
+        path: "editCurrencyExchange",
+        element: <EditCurrency />,
+        action: editAction
       }
     ]
   }
