@@ -2,8 +2,6 @@ import Modal from "../components/Modal.jsx";
 import classes from "../cssModules/DeleteCurrency.module.css";
 import { Form, Link, redirect} from "react-router-dom";
 import { useState } from "react";
-import ExchangeRateInput from "../components/ExchangeRateInput.jsx";
-
 import { useSelector } from "react-redux";
 
 function EditCurrency() {
@@ -80,6 +78,7 @@ export async function action({ request }) {
 
     const response = await fetch('http://localhost:3000/currencies', {
       method: 'PUT',
+      credentials: 'include',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify(updatedCurrency)
     });

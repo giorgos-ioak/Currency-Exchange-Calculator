@@ -55,6 +55,7 @@ export async function action({ request }) {
 
     const response = await fetch('http://localhost:3000/deleteCurrency', {
       method: 'DELETE',
+      credentials: 'include',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify(selectedCurrency)
     });

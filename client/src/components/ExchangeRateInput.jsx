@@ -42,7 +42,7 @@ function ExchangeRateInput({title, name}) {
         className={classes.inputContainer} 
         name={name}
         type="number"
-        required
+        disabled
         value={exchangeRate || ''}
         onChange={handleInputChange}
       />

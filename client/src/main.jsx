@@ -10,6 +10,8 @@ import { loader } from "./routes/MainPage.jsx";
 import "./index.css";
 
 import MainPage from './routes/MainPage.jsx';
+import Login from './routes/Login.jsx';
+import Logout from './routes/Logout.jsx';
 import CreateCurrency, { action as createAction } from './routes/CreateCurrency.jsx';
 import DeleteCurrency, { action as deleteAction } from './routes/DeleteCurrency.jsx';
 import EditCurrency, { action as editAction } from './routes/EditCurrency.jsx';
@@ -23,6 +25,14 @@ const router = createBrowserRouter([
     element: <MainPage />,
     loader: loader,
     children: [
+      {
+        path: "login",
+        element: <Login />
+      },
+      {
+        path: "logout",
+        element: <Logout />
+      },
       {
         path: "createCurrencyExchange",
         element: <CreateCurrency />,

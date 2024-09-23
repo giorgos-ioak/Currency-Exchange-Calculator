@@ -1,135 +1,31 @@
-const cors = require('cors');
-const express = require('express');
-const fs = require('fs');
+import cors from 'cors';
+import express from 'express';
+import cookieParser from 'cookie-parser';
+
+
+import authRoutes from "./routes/auth.js";
+import currencyRoutes from "./routes/currency.js";
+
 
 const app = express();
 const port = 3000;
 
 app.use(express.json());
-app.use(cors());
-
-
-
-
-function readFile() {
-  const fileContent = fs.readFileSync("./database/currencies.json" , "utf-8");          // METHOD FOR READING THE 
-  const currencies = JSON.parse(fileContent);                                           // 'currencies.json' Database FILE.
-
-  return currencies;
-};
-
-readFile();
-
-
-function writeFile(data) {
-  fs.writeFileSync("./database/currencies.json", JSON.stringify(data));                 // METHOD FOR WRITING THE 'currencies.json' Database FILE.
-};
+app.use(cors({
+  origin: 'http://localhost:5173',
+  credentials: true 
+}));
+app.use(cookieParser());
 
 
 
 
 
-app.get("/currencies" , (req,res) => {          //// DONE
-  const currencies = readFile();
-
-  if(!currencies) {
-    return res.json({message: "There are no currencies registered"});
-  }
-
-  return res.send(currencies);
-});
 
 
-
-// app.get("/currencies/:name" , (req,res) => {     
-//   const currencies = readFile();
-//   const name = req.params.name;
-
-//   if(!currencies[name]) {
-//     return res.json({message: "This currency does not exist"});
-//   }
-
-//   const currency = data[name];
-//   return res.send(currency);
-// });
-
-
-
-app.post("/convert" , (req,res) => {            
-  const currencies = readFile();
-
-  const { baseCurrency, targetCurrency, amount } = req.body;
-
-  const exchangeCurrency = currencies.find((object) => object.baseCurrency == baseCurrency && object.targetCurrency == targetCurrency);
-
-  const rate = exchangeCurrency.rate;
-  const convertedAmount = rate * amount;
-
-  return res.status(200).json({ convertedAmount });
-}); 
-
-
-
-
-app.post("/createCurrency" , (req,res) => {
-  const currencies = readFile();
-
-  const { baseCurrency, targetCurrency, rate } = req.body;   
-  
-  const exchangeCurrency = currencies.find((object) => object.baseCurrency == baseCurrency && object.targetCurrency == targetCurrency);
-
-  if(exchangeCurrency) {
-    return res.json({message: "This exchange currency already exists."})
-  };
-
-  const newExchangeCurrency = { baseCurrency, targetCurrency, rate }
-
-  const updatedCurrencies = [...currencies, newExchangeCurrency]
-  writeFile(updatedCurrencies);
-
-  return res.status(200).json({ message: "Currency Created" , currency: newExchangeCurrency});
-});
-
-
-
-
-app.put("/currencies" , (req,res) => {
-  const currencies = readFile();
-
-  const { baseCurrency, targetCurrency, rate } = req.body;   
-  
-  const exchangeCurrency = currencies.find((object) => object.baseCurrency == baseCurrency && object.targetCurrency == targetCurrency);
-
-  if(!exchangeCurrency) {
-    return res.json({message: "This currency does not exist."})
-  };
-
-  exchangeCurrency.rate = rate;
-
-  writeFile(currencies);
-  return res.status(200).json({message: "Updated the currency's rate" , currency: exchangeCurrency});
-});
-
-
-
-
-app.delete("/deleteCurrency" , (req,res) => {
-  const currencies = readFile();
-  
-  const { baseCurrency, targetCurrency } = req.body;
-
-  const selectedCurrency = currencies.find((object) => object.baseCurrency == baseCurrency && object.targetCurrency == targetCurrency);
-  
-  if(!selectedCurrency) {
-    return res.json({message: "This currency does not exist."})
-  }
-
-  const updatedCurrencies = currencies.filter((object) => object !== selectedCurrency);
-
-  writeFile(updatedCurrencies);
-  return res.status(200).json({message: `Successfully deleted the currency.`})
-});
-
+//ROUTES
+app.use('/', currencyRoutes);
+app.use('/auth', authRoutes);
 
 
 
