@@ -8,7 +8,7 @@ function MutateCurrency() {
     <div className={classes.mainContainer}>
       <div className={classes.topContainer}>
         <Link to="/createCurrencyExchange">
-          <Button to="newCurrency">Create Currency</Button>
+          <Button>Create Currency</Button>
         </Link>
 
         <Link to="/deleteCurrencyExchange">       

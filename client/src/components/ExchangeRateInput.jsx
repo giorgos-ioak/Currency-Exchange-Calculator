@@ -5,9 +5,13 @@ import { useSelector } from "react-redux";
 
 
 function ExchangeRateInput({title, name}) {
-  const [exchangeRate, setExchangeRate] = useState(null);     // State for storing the rate
+  const [exchangeRate, setExchangeRate] = useState(null);
 
-  const currencies = useSelector((state) => state.currencies.value);      // Get the all the currencies
+
+  // GETTING ALL THE CURRENCIES
+  const currencies = useSelector((state) => state.currencies.value);      
+
+  // GETTING THE SELECTED BASE & TARGET CURRENCY
   const selectedCurrencies = useSelector((state) => state.selectedCurrencies.value);
 
   const baseCurrency = selectedCurrencies?.baseCurrency;
@@ -16,6 +20,8 @@ function ExchangeRateInput({title, name}) {
 
   useEffect(() => {
     if(baseCurrency && targetCurrency) {
+
+      // FINDING THE OBJECT THAT CONTAINS BOTH BASE & TARGET CURRENCY
       const exchangeCurrency = (currencies || []).find((object) => object.baseCurrency == baseCurrency && object.targetCurrency == targetCurrency);
 
       if(exchangeCurrency) {

@@ -21,6 +21,16 @@ function CreateCurrency() {
           </Link>
           <button className={classes.submitBtn}>Create</button>
         </div>
+
+        <p style={{
+          fontFamily: 'Poppins',
+          fontSize:"0.8rem",
+          textAlign: 'center',
+          marginTop: '2rem'
+        }}>
+          *You need to be authorized.*
+        </p>
+        
       </Form>
     </Modal>
   )
@@ -30,7 +40,7 @@ export default CreateCurrency
 
 
 
-
+// ACTION FUNCTION THAT GETS EXECUTED UPON FORM SUBMISSION
 export async function action({ request }) {
   try {
     const formData = await request.formData();

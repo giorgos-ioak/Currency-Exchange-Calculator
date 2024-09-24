@@ -6,6 +6,8 @@ import { useSelector } from "react-redux";
 
 function EditCurrency() {
   const [selectedCurrency, setSelectedCurrency] = useState(null);
+
+  // GETTING ALL THE CURRENCIES
   const currencies = useSelector((state) => state.currencies.value);  
 
   function handleSelectedCurrencyChange(e) {
@@ -41,7 +43,7 @@ function EditCurrency() {
         <input 
           type="number" 
           defaultValue={selectedCurrency?.rate} 
-          step='0.01' 
+          step='0.1' 
           id='editedRate' 
           name='editedRate' 
           required
@@ -53,6 +55,15 @@ function EditCurrency() {
           </Link>
           <button className={classes.submitBtn}>Edit</button>
         </div>
+
+        <p style={{
+          fontFamily: 'Poppins',
+          fontSize:"0.8rem",
+          textAlign: 'center',
+          marginTop: '2rem'
+        }}>
+          *You need to be authorized.*
+        </p>
 
       </Form>
     </Modal>
@@ -66,6 +77,7 @@ export default EditCurrency;
 
 
 
+// ACTION FUNCTION THAT GETS EXECUTED UPON FORM SUBMISSION
 export async function action({ request }) {
   try {
     const formData = await request.formData();

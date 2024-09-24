@@ -5,6 +5,8 @@ import { isAuthenticated } from "../middleware/middleware.js";
 
 const router = express.Router();
 
+
+// CURRENCY ENDPOINTS
 router.get("/currencies", getCurrencies);
 router.post("/convert", convertCurrency);
 router.post("/createCurrency", isAuthenticated, createCurrency);          //REQUIRES AUTHORIZATION

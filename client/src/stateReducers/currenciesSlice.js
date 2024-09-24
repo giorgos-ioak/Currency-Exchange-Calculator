@@ -4,6 +4,8 @@ const initialState = {
   value: null
 };
 
+
+// CURRENCIES SLICE
 export const currenciesSlice = createSlice({
   name: "currencies",
   initialState,

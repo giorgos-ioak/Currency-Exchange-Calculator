@@ -14,11 +14,16 @@ import { Outlet, useLoaderData } from "react-router-dom";
 
 function MainPage() {
   const dispatch = useDispatch();
+
+  // GETTING THE DATA FROM THE LOADER FUNCTION
   const currencies = useLoaderData();
 
   
+
+  // STORING THE CURRENCIES DATA IN THE GLOBAL STATE
   useEffect(() => {
     dispatch(storeCurrencies(currencies));
+
   }, [currencies]);
 
 
@@ -42,6 +47,8 @@ export default MainPage
 
 
 
+
+// FETCHING THE CURRENCIES DATA FROM THE BACKEND
 export const loader = async() => {
   const response = await fetch('http://localhost:3000/currencies');
   const data = await response.json();

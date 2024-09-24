@@ -5,13 +5,17 @@ import { useDispatch, useSelector } from "react-redux";
 import { changeSelectedCurrencies } from "../stateReducers/selectedCurrencies";
 
 function BaseCurrency({ label, name }) {
-  const dispatch = useDispatch();
-  
   const [baseCurrency, setBaseCurrency] = useState("Select an option");
+  
+  const dispatch = useDispatch();
   const currencies = useSelector((state) => state.currencies.value);  
 
-  const allCurrencies = (currencies || []).flatMap((object) => [object.baseCurrency, object.targetCurrency]);
-  const uniqueCurrencies = [...new Set(allCurrencies)];
+
+  // RETURNS A NEW ARRAY CONTAINING ALL THE BASE CURRENCIES AND TARGET CURRENCIES
+  const allCurrencies = (currencies || []).flatMap((object) => [object.baseCurrency, object.targetCurrency]);     
+
+  // REMOVES DUPLICATES FROM THE NEW ARRAY
+  const uniqueCurrencies = [...new Set(allCurrencies)];     
 
 
 

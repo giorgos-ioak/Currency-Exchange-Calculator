@@ -5,6 +5,8 @@ import { Form, Link, redirect} from "react-router-dom";
 import { useSelector } from "react-redux";
 
 function DeleteCurrency() {
+  
+  // GETTING ALL THE CURRENCIES
   const currencies = useSelector((state) => state.currencies.value);  
   
   return (
@@ -36,6 +38,15 @@ function DeleteCurrency() {
           <button className={classes.submitBtn}>Delete</button>
         </div>
 
+        <p style={{
+          fontFamily: 'Poppins',
+          fontSize:"0.8rem",
+          textAlign: 'center',
+          marginTop: '2rem'
+        }}>
+          *You need to be authorized.*
+        </p>
+
       </Form>
     </Modal>
   )
@@ -46,6 +57,7 @@ export default DeleteCurrency
 
 
 
+// ACTION FUNCTION THAT GETS EXECUTED UPON FORM SUBMISSION
 export async function action({ request }) {
   try {
     const formData = await request.formData();
@@ -72,9 +84,3 @@ export async function action({ request }) {
   return { error: error.message };
 }
 };
-
-
-
-
-
-

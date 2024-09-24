@@ -7,7 +7,9 @@ const initialState = {
   }
 };
 
-export const currenciesSlice = createSlice({
+
+// SELECTED CURRENCY SLICE
+export const selectedCurrenciesSlice = createSlice({
   name: "currencies",
   initialState,
   reducers: {
@@ -18,5 +20,5 @@ export const currenciesSlice = createSlice({
 });
 
 
-export const { changeSelectedCurrencies } = currenciesSlice.actions;
-export default currenciesSlice.reducer;
+export const { changeSelectedCurrencies } = selectedCurrenciesSlice.actions;
+export default selectedCurrenciesSlice.reducer;

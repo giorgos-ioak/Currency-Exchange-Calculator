@@ -1,6 +1,8 @@
 import { readFile, writeFile } from "../middleware/middleware.js";
 
 
+
+// FETCHING THE CURRENCIES INFO
 export function getCurrencies(req,res) {
   const currencies = readFile();
 
@@ -12,6 +14,8 @@ export function getCurrencies(req,res) {
 };
 
 
+
+// CONVERTING THE USER'S AMOUNT TO THE DESIRED CURRERCY
 export function convertCurrency(req,res) {
   const currencies = readFile();
 
@@ -26,6 +30,8 @@ export function convertCurrency(req,res) {
 }
 
 
+
+// CREATING A NEW CURRENCY
 export function createCurrency(req,res) {
   const currencies = readFile();
 
@@ -46,6 +52,9 @@ export function createCurrency(req,res) {
 }
 
 
+
+
+// UPDATING AN EXISTING CURRENCY
 export function updatedCurrency(req,res) {
   const currencies = readFile();
 
@@ -65,6 +74,8 @@ export function updatedCurrency(req,res) {
 
 
 
+
+// DELETING AN EXISTING CURRENCY
 export function deleteCurrency(req,res) {
   const currencies = readFile();
   

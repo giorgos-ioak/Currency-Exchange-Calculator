@@ -8,6 +8,7 @@ function AmountInput({title, name}) {
         className={classes.inputContainer} 
         name={name}
         type="number"
+        min="0"
         required
       />
     </div>

@@ -5,12 +5,16 @@ import { useState } from "react";
 import { changeSelectedCurrencies } from "../stateReducers/selectedCurrencies.js";
 
 function TargetCurrency({ label, name }) {
-  const dispatch = useDispatch();
-
   const [targetCurrency, setTargetCurrency] = useState("Select an option");
+
+  const dispatch = useDispatch();
   const currencies = useSelector((state) => state.currencies.value);  
 
+
+  // RETURNS A NEW ARRAY CONTAINING ALL THE BASE CURRENCIES AND TARGET CURRENCIES
   const allCurrencies = (currencies || []).flatMap((object) => [object.baseCurrency, object.targetCurrency]);
+
+  // REMOVES DUPLICATES FROM THE NEW ARRAY
   const uniqueCurrencies = [...new Set(allCurrencies)];
 
 
@@ -28,7 +32,7 @@ function TargetCurrency({ label, name }) {
       <select 
         className={classes.inputContainer} 
         name={name} 
-        id="baseCurrency"
+        id="targetCurrency"
         value={targetCurrency}
         onChange={handleSelectChange}
       >

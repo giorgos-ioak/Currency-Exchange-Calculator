@@ -13,12 +13,13 @@ function Calculator() {
 
 
   const handleSubmit = async (e) => {
-    e.preventDefault(); // Prevent default form submission
+    e.preventDefault();
+
     const formData = new FormData(e.target);
     const data = Object.fromEntries(formData);
 
     try {
-      // Get converted amount
+      // GETTING THE CONVERTED AMOUNT
       const response = await fetch(`http://localhost:3000/convert`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -34,9 +35,11 @@ function Calculator() {
       }
 
       const result = await response.json();
-      setConvertedAmount(result.convertedAmount); // Set converted amount
+
+      // SETTING THE STATE WITH THE CONVERTED AMOUNT
+      setConvertedAmount(Number(result.convertedAmount.toFixed(2))); 
     } catch (err) {
-      return {error: err.message}; // Set error message if any
+      return {error: err.message};
     }
   };
 

@@ -1,6 +1,6 @@
 import classes from "../cssModules/Login.module.css";
 import Modal from "../components/Modal.jsx";
-import { Link, Form, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { login } from '../stateReducers/authSlice.js';
 
@@ -30,8 +30,18 @@ function Login() {
         });
       } 
 
-      dispatch(login());
-      navigate('/');
+      const result = await response.json();
+
+      if (result.token) {
+        // STORING THE TOKEN IN THE LOCAL STORAGE
+        localStorage.setItem('authToken', result.token);
+  
+        dispatch(login());
+        navigate('/');
+
+      } else {
+        throw new Error('Token not found in response.');
+      }
     } catch(err) {
       return {error: err.message};
     }
@@ -39,7 +49,7 @@ function Login() {
 
   return (
     <Modal>
-      <Form method='post' onSubmit={handleSubmit} className={classes.form}>
+      <form method='post' onSubmit={handleSubmit} className={classes.form}>
         <label htmlFor='username'>Username</label>
         <input type="text" id='username' name='username' required/>
 
@@ -52,7 +62,7 @@ function Login() {
           </Link>
           <button className={classes.submitBtn}>LogIn</button>
         </div>
-      </Form>
+      </form>
     </Modal>
   )
 }
@@ -60,30 +70,3 @@ function Login() {
 export default Login;
 
 
-
-
-
-// export async function action({ request }) {
-//   try {
-//     const formData = await request.formData();
-//     const data = Object.fromEntries(formData);
-
-//     const response = await fetch('http://localhost:3000/auth/login', {
-//       method: 'POST',
-//       headers: {'Content-Type': 'application/json'},
-//       body: JSON.stringify(data)
-//     });
-
-//     if(!response.ok) {
-//       throw new Error({
-//         name: 'Error',
-//         message: 'Failed to Log In.'
-//       });
-//     } 
-
-//     useDispatch(login());
-//     return redirect('/');
-// } catch (error) {
-//   return { error: error.message };
-// }
-// };

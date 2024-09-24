@@ -24,8 +24,11 @@ function Logout() {
         });
       } 
 
+      // REMOVING THE TOKEN FROM LOCAL STORAGE
+      localStorage.removeItem('authToken');
       dispatch(logout());
       navigate('/');
+      
     } catch(err) {
       return {error: err.message};
     }
@@ -53,4 +56,4 @@ function Logout() {
   )
 }
 
-export default Logout
+export default Logout;

@@ -4,6 +4,7 @@ const initialState = {
   isLoggedIn: false
 };
 
+// AUTH SLICE
 export const authSlice = createSlice({
   name: "auth",
   initialState,
