@@ -43,7 +43,7 @@ function EditCurrency() {
         <input 
           type="number" 
           defaultValue={selectedCurrency?.rate} 
-          step='0.1' 
+          step='0.01'
           id='editedRate' 
           name='editedRate' 
           required

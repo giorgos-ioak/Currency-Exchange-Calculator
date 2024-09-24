@@ -13,7 +13,7 @@ function CreateCurrency() {
         <input type="text" id='targetCurrency' name='targetCurrency' required/>
 
         <label htmlFor='name'>Exchange Rate</label>
-        <input type='number' step='0.01' id='rate' name='rate' required /> 
+        <input type='number' min="0" step='0.01' id='rate' name='rate' required /> 
 
         <div className={classes.actions}>
           <Link className={classes.cancelBtn} to=".." type="button">
