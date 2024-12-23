@@ -1,1 +1,1 @@
-console.log('Changed name');
+console.log('Change');
